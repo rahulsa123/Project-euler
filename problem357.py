@@ -1,4 +1,4 @@
-#takes more 24sec when using list type but i like numpy, it take >1min
+#takes >2min
 import time
 prime=[0]*100000000
 p=2 
