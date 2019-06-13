@@ -1,3 +1,5 @@
+# less than 30sec
+
 import time
 t1=time.time()
 size=10000000
