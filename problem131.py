@@ -1,3 +1,5 @@
+#very fast very
+
 size=1000000
 prime=[False]*2+[True]*2+[i for _ in range(int(size/2)-2) for i in [False, True]]
 l=[2]
