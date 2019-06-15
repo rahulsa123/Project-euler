@@ -1,3 +1,5 @@
+#not properly solution take >2min
+
 import re
 import itertools as it
 size=1000000
