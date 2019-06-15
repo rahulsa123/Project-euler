@@ -1,3 +1,6 @@
+# p=(11/r)^4  to log11(p)=r*(1-log11(r)) maximum for 1 to 10
+# now for 12 we starting checking r from 4 to 11 (very fast )
+
 import math as m
 su=0 
 pre=2
