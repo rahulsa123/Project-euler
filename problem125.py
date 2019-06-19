@@ -1,4 +1,4 @@
-# size change karna hai bas
+# duplicte is the big problem so using set 
 
 
 size=100000000
