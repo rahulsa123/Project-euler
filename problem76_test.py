@@ -1,10 +1,23 @@
 import itertools as it
+test=[True]*1000000
+l=[0,2]
+p=3
+while(p*p<=1000000):
+    if(test[p]):
+        l.append(p)
+        for i in range(p+p,1000000,p):
+            test[i]=False
+    p+=2
+for i in range(p,1000000):
+    if(test[i]):
+        l.append(i)
 def partition(num):
-    l=[0]+[x for x in range(1,num)]
     total=num
     ways=[0]+[0 for _ in range(num)]
     ways[0]=1
     for i in range(1,num):
+        if(l[i]>num):
+            break
         for j in range(l[i],total+1):
             ways[j]=ways[j]+ways[j-l[i]]
  #   print(ways)
@@ -13,11 +26,10 @@ def partition(num):
             print(i)
             break
     return ways[total]
-print(partition(100))
-"""
 for i in it.count(10):
-    print(i)
-    if(partition(i)%1000000==0):
+    x=partition(i)
+    print(i,x)
+    if(x>=5000):
         print(i)
         break
-    """
+    
