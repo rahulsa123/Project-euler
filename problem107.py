@@ -1,3 +1,4 @@
+# using prim's algorithm
 l=[]
 total=0
 with open("network.txt") as f:
