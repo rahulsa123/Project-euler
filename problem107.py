@@ -38,4 +38,4 @@ for _ in range(40):
         end_total+=min_ref
 #        print(ref_child)
 
-print(total//2,end_total,seen)
+print(total//2-end_total,seen)
