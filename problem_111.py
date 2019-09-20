@@ -59,3 +59,11 @@ for ref in [2,8]:
                         print(ref1)
                         ans+=ref1
 print(ans)
+
+
+
+
+
+
+
+
