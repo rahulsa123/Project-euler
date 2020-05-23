@@ -1,21 +1,17 @@
-from primeupto import prime
-max_limit = 10**9
-p = prime(10**8)
+import prime
+test1 = [1,3,7,9,13,27]
+test2 = [21]
 total=0
-def checkPrime(n):
-	ref = n**0.5
-	for i in p:
-		if i>ref:
-			return True
-		if n%i==0:
-			return False
-	return True
-for i in [1]+p:
-    i*=10
-    ref_true = [i**2+x for x in [1,3,7,9,13,27]]
-	#ref_false = [i**2+x for x in [5,11,15,17,19,21,23,25]]
-	#print(ref_true,ref_false)
-    if all((checkPrime(x) for x in ref_true)):
-        print(i)
+for i in range(10,150*10**6,10):
+    squared = i**2
+    if (squared % 3 != 1):
+        continue
+    ref = squared % 7
+    if ( ref != 2 and ref != 3):
+        continue
+    if (squared % 13 == 0):
+        continue
+    if not any((prime.is_prime(squared+x) for x in test2)) and all((prime.is_prime(squared+x) for x in test1 )):
+        #print(i)
         total+=i
-print("t",total)
+print(total)

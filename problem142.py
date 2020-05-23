@@ -10,5 +10,6 @@ while(True):
              z = ref_z**2-y
              if z!=0 and f((y-z)**0.5) and f((x-z)**0.5) and f((x+z)**0.5):
                  print(x,y,z)
+                 exit()
     x+=1
 
