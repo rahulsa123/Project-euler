@@ -99,27 +99,31 @@ ref = [[81, 88, 75, 42, 87, 84, 86, 65],
 [302, 299, 291, 300, 298, 149, 260, 305, 280, 370], [678, 517, 670, 686, 682, 768, 687, 648, 342, 692, 702], 
 [302, 290, 304, 376, 333, 303, 306, 298, 279, 153], [95, 102, 109, 54, 96, 75, 85, 97], 
 [150, 154, 146, 78, 152, 151, 162, 173, 119], [150, 143, 157, 152, 184, 112, 154, 151, 132], [36, 41, 54, 40, 25, 44, 42],
-[37, 48, 34, 59, 39, 41, 40], [681, 603, 638, 611, 584, 303, 454, 607, 606, 605, 596]]
+[37, 48, 34, 59, 39, 41, 40], [681, 603, 638, 611, 584, 303, 454, 607, 606, 605, 596],[13,14,15,16,17,18,19]]
 total=0
-for index,arr in enumerate(ref):
-    found = True
-    l=[]
-    if len(arr)!= len(set(arr)):
-        continue
-    arr.sort()
-    for r in range(2,len(arr)-1):
-        n = len(arr) 
-        printcombination(arr, n, r,l)
-    for i in range(len(l)-1):
-        for j in range(i+1,len(l)):
-            if len(l[i].intersection(l[j]))==0 and len(l[j].intersection(l[i]))==0 and (sum(l[i])==sum(l[j]) or len(l[i])>len(l[j]) and sum(l[i])< sum(l[j]) or len(l[j])>len(l[i]) and sum(l[j])< sum(l[i])):
-                #print(index,arr,l[i],l[j])
-                found = False 
+def check(ref):
+    global total
+    for index,arr in enumerate(ref):
+        found = True
+        l=[]
+        if len(arr)!= len(set(arr)):
+            continue
+        arr.sort()
+        for r in range(2,len(arr)-1):
+            n = len(arr) 
+            printcombination(arr, n, r,l)
+        for i in range(len(l)-1):
+            for j in range(i+1,len(l)):
+                if len(l[i].intersection(l[j]))==0 and len(l[j].intersection(l[i]))==0 and (sum(l[i])==sum(l[j]) or len(l[i])>len(l[j]) and sum(l[i])< sum(l[j]) or len(l[j])>len(l[i]) and sum(l[j])< sum(l[i])):
+                    #print(index,arr,l[i],l[j])
+                    found = False 
+                    break
+            if not found:
                 break
-        if not found:
-            break
-    if found:
-        print(index,arr,sum(arr),total)
-        total+=sum(arr)
-print(total)
+        if found:
+            print(index,arr,sum(arr),total)
+            total+=sum(arr)
+if __name__=="__main__":
+    check(ref[98:])
+    print(total)
 

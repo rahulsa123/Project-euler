@@ -17,10 +17,9 @@ while(p<1000000):
     else:
         sum_of_divisor[p]-=p
     p+=1
-print(sum_of_divisor[1184])
 
 max_chain=0
-min_element=28
+min_element=10**9
 for i in range(2,1000000):
     ref=sum_of_divisor[i]
     if(ref<1000000):
@@ -34,7 +33,4 @@ for i in range(2,1000000):
                 if(ref==i and max_chain<len(l)):
                     max_chain=len(l)
                     min_element=min(min(l),min_element)
-                #print(l)
-                break
-            ref=sum_of_divisor[ref]
-print(max_chain,min_element)
+      

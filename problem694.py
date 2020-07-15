@@ -9,10 +9,10 @@ sys 0m0.429s
 """
 import numpy as np
 from collections import deque
-from Project_euler.prime import prime
+from prime import prime
 
 
-limit = 10**18+1
+limit = 10**6+1
 test_limit = int(limit**(1/3)+1) 
 # print(test_limit)
 test = [[] for x in range(test_limit)]
@@ -61,8 +61,10 @@ for i in range(2, test_limit):
     if temp == i:
         temp = 1
         # get the starting cube full number with list of prime
+
         for j in test[i]:
             temp *= j**3
+        print(temp, end=' ')
         # add all the multiple of cube full number
         total += (limit-1)//temp
         # now here get_numbers return series of numbers where prime factors are in list
@@ -71,5 +73,6 @@ for i in range(2, test_limit):
             if ref >= limit:
                 break
             total += (limit-1)//ref
+            print(ref, end=" ")
     test[i]=None
 print(total)

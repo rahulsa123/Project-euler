@@ -1,6 +1,6 @@
 from functools import reduce
 from itertools import combinations
-from Project_euler.prime import is_prime
+from prime import is_prime
 from collections import deque
 import numpy as np
 prime = [2, 3, 5, 7, 11, 13, 17, 19, 23]
@@ -10,8 +10,8 @@ find logic to reduce size of ref_array
 """
 
 
-def get_number(prime):
-    limit = 10**9
+def get_number(prime, limit):
+    
     ref_array = deque([1])
     prime_mul = np.zeros(len(prime), dtype=np.int64)
     while True:
@@ -44,18 +44,20 @@ def getNearPrime(n):
 			return temp + 1
 		ref += 1
 
-""" for distinct value of M"""
-M = set()
-for num in get_number([2]):
-	tt = getNearPrime(num+1)
-	M.add(tt - num)
-limit = 10**9
-for com_num in range(2,len(prime)+1):
-	ref = reduce(lambda x,y:x*y, prime[:com_num])
-	M.add(getNearPrime(ref+1) - ref)
-	for num in get_number(prime[:com_num]):
-		if ref*num >= limit :
-			break
-		tt = getNearPrime(ref*num+1)
-		M.add(tt - ref*num)
-print(sum(M))
+if __name__ == "__main__":
+	""" for distinct value of M"""
+	limit = 10**9
+	M = set()
+	for num in get_number([2], limit):
+		tt = getNearPrime(num+1)
+		M.add(tt - num)
+	
+	for com_num in range(2,len(prime)+1):
+		ref = reduce(lambda x,y:x*y, prime[:com_num])
+		M.add(getNearPrime(ref+1) - ref)
+		for num in get_number(prime[:com_num], limit):
+			if ref*num >= limit :
+				break
+			tt = getNearPrime(ref*num+1)
+			M.add(tt - ref*num)
+	print(sum(M))
