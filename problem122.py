@@ -1,46 +1,66 @@
-number = {x:[0,set()] for x in range(1,201)}
+"""
+1582
 
-number[1][0]=0
-number[1][1].add(1)
-l=[0,0]
-total = 0
+real    0m11.128s
+user    0m11.030s
+sys 0m0.033s
+
+
+"""
+import math
+index  = 200
+l= [[-1, set()] for i in range(index+1)]
+l[1] = [0,[{1}]]
+
+for i in range(2,index+1):
+    # set min value which from i-1
+    l[i] = [l[i-1][0] + 1, list(map(lambda x:x.union({i-1}),l[i-1][1]))]
+    # search for min value
+    for j in range(math.ceil(i/2), i-1):
+        if l[j][0]+1<=l[i][0]:
+            # check if i-j is in l[j][1]
+            found = False
+            for s in l[j][1]:
+                if i-j in s or i-j == j:
+                    found = True
+                    break
+            if found:
+                if l[j][0]+1 < l[i][0]:
+                    l[i][1].clear()
+                l[i][0]=l[j][0]+1
+                
+                for s in l[j][1]:
+                    ref = s.union({j})
+                    con = False
+                    # check if set already exist if then continue loop for j
+                    for s2 in l[i][1]:
+                        if s2.issuperset(ref):
+                            con = True
+                            break
+                    if con:
+                        continue
+                    # check i-j in s or i-j==j for 4 where 4-2==2 and 4-2 not in s    
+                    if i-j in s or i-j==j:
+                        l[i][1].append(ref)
+            else:
+                # check is there subset avalaible in i-j 
+                found = False
+                for s1 in l[i-j][1]:
+                    for s2 in l[j][1]:
+                        # check if set already exist if then continue loop for j
+                        if s2.issuperset(s1):
+                            found = True
+                            break
+                if found and l[j][0]+2<=l[i][0]:
+                    if l[j][0]+2 < l[i][0]:
+                        l[i][1].clear()
+                    l[i][0]=l[j][0]+2
+                    
+                    for s1 in l[i-j][1]:
+                        for s2 in l[j][1]:
+                            if s2.issuperset(s1):
+                                l[i][1].append(s.union({j,i-j}))
+res = 0
 for i in range(2,201):
- # getting previous value 
-    ref_val = number[i-1][0] + 1
-    ref_set = set(number[i-1][1])
-    ref_set.add(i-1)
-    # loop from i/2 to i-1 
-    for j in range(i//2, i):
-        # checking middle condition 
-        if j+j == i and ref_val >= number[j][0]+1:
-            ref_val = number[j][0]+1
-            ref_set = set(number[j][1])
-            ref_set.add(j)
-        else:
-            # first check number[j][0]+1 value is greater
-            if number[j][0]+1>ref_val:
-                continue 
-            # checking if they equal then just update the set 
-            if False and number[j][0]+1 == ref_val and i-j in number[j][1]:
-                ref_set.update(number[j][1])
-                ref_set.add(j)
-            elif number[j][0]+1<ref_val and i-j in number[j][1]:
-                ref_val = number[j][0]+1
-                ref_set = set(number[j][1])
-                ref_set.add(j)
-        if i==71:
-            print(i,j,ref_set)
-            input()
-    number[i][0] = ref_val
-    number[i][1] = ref_set
-    total+=ref_val
-    l.append(ref_val)
-import pprint
-#pprint.PrettyPrinter(indent=0).pprint(number)
-#for i in number:
-#    print(i, number[i])
-
-#print(total)
-print(total)
-
-
+    res+= l[i][0]
+print(res)
