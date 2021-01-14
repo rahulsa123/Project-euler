@@ -1,7 +1,7 @@
 
 
 def prime(n):
-    sieveBond = (n-1)//2
+    sieveBond = (n)//2
     sieve = bytearray(sieveBond+1)
     sieve[0]=1
     crosslimit = int((n**0.5-1)/2)
