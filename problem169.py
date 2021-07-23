@@ -1,32 +1,54 @@
-limit = 10
-import math as m 
-s = int(m.log(limit,2))
-l = [[0,2**i,2**(i+1)] for i in range(s+1)]
-l[-1] = l[-1][:-1]
-l[0] = [l[0],2]
-for i in range(1,len(l)):
-    l[i] = [l[i],l[i][-1]+l[i-1][1]]
-print(l)
-for i in range(len(l)-1):
-    if l[i][1]<limit:
-        l[i][0] = l[i][0][1:]
-    else:
-        break 
-l[i][0]=l[i][0][1:]
-print(l)
-l.reverse()
+"""
+178653872807
 
-total = 0 
-print(l)
-def getResult(index,res):
-    global total
-    if res==limit:
-        total+=1
-        return
-    if index >=len(l) or res>limit or l[index][1]+res<limit:
-        return
-    for i in l[index][0]:
-        getResult(index+1,res+i)
+real	0m0.048s
+user	0m0.044s
+sys	0m0.005s
 
-getResult(0,0)
-print(total)
+
+"""
+
+
+
+from collections import defaultdict
+import math as m
+
+"""
+
+cache {
+	curr_power : {
+			n: number of ways to make using 2th power from 0 to curr_power
+			}
+}
+"""
+
+limit = 10**25
+power = int(m.log2(limit))
+cache = {x:defaultdict(int) for x in range(power+1)}
+cache[0][1] = 1
+cache[0][2] = 1
+cache[1][2] = 2
+
+def calculate(n,power):
+	# print(n,power)
+	ref = 2**power
+	if n<0 or n>2*(2*ref-1) or power<0:
+		return 0
+	if n==0:
+		return 1
+	if cache[power][n]!=0:
+		return cache[power][n]
+	
+	
+	result = 0
+	if n>=2*ref:
+		result += calculate(n-2*ref,power-1)
+	if n>=ref:
+		result+=calculate(n-ref,power-1)
+	if power>0:
+		result+=calculate(n,power-1)
+	cache[power][n] = result
+	return result
+
+
+print(calculate(limit,power))
